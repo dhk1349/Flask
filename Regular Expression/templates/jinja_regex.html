@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Flask template by jinja regex</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        .container{
+            max-width: 500px;
+            padding-top: 100px;
+            border:solid 1px red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>My string : {{my_string}}</p>
+        <p>리스트 항목 : {{my_list[3]}}</p>
+        <p>리스트 값 출력 : </p>
+        <ul>
+            {%for n in my_list%}
+            <li>{{n}}</li>
+            {%endfor%}
+        </ul>
+    </div>
+</body>
+</html>
