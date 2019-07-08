@@ -1,0 +1,1 @@
+{{data.name}}는 연봉이 {{data.salary}}원 입니다.

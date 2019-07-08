@@ -1,0 +1,10 @@
+{%extends "temp_html.html"%}
+
+{%block content%}
+<p>Beginning of the child part</p>
+{{my_list[10]}}
+{%for i in my_list%}
+<div>{{i}}</div>
+{%endfor%}
+<p>End of the child part</p>
+{%endblock%}
