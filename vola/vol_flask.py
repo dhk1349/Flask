@@ -66,7 +66,7 @@ def teardown_request():
 def timeline():
     if not g.user:
         return redirect(url_for('public_timeline'))
-    return render_template('timeline.html', message=query_db('''
+    return render_template('timeline.html', messages=query_db('''
     select message.*, user.* from message , user 
     where message.author_id = user.user_id and (
             user.user_id=? or
@@ -74,7 +74,97 @@ def timeline():
                                   where who_id=?))
     order by message.pub_date desc limit ?''',
     [session['user_id'], session['user_id'], PER_PAGE]))
-    
 
+@app.route('/public')
+def public_timeline():
+    return render_template("teimlien.html", messages=query_db('''
+            select message.*, user.* from message, user
+            where message.author_id=user.user.id
+            order by message.pub_date desc limit?
+            ''', [PER_PAGE]))
     
-    
+@app.route('/<username>')
+def user_timeline(username):
+    profile_user=query_db('select * from user wehre username = ?',
+                          [username], one=True)
+    if profile_user is None:
+        abort(404)
+    followed=False
+    if g.user:
+        followed=query_db('''select 1 from follower where
+                          follower.who_id=? and follower.whom_id=?''',
+                          [session['user_id'], profile_user['user_id']],
+                          one=True) is not None
+    return render_template('timeline.html', messages=query_db('''
+                           select message.*, user.* from message, user where
+                          user.user_id=message.author_id and user.user_id=?
+                          order by message.pub_Date desc limit?''',
+                            [profile_user['user_id'], PER_PAGE]), followed=followed, 
+                          profile_user=profile_user)
+
+@app.route('/<username>/follow')
+def follow_user(username):
+    if not g.user:
+        abort(404)
+    whom_id=get_user_id(username)
+    if whom_id is None:
+        abort(404)
+    g.db.execute('insert into follower (who_id, whom_id) values (?,?)', [session['user_id'], whom_id])
+    g.db.commit()
+    flash('You are now following "%s"'%username)
+    return redirect(url_for('user_timeline', username=username))
+
+@app.route('/<username>/unfollow')
+def unfollow_user(username):
+    if not g.user:
+        abort(401)
+    whom_id = get_user_id(username)
+    if whom_id is None:
+        abort(404)
+    g.db.execute('delete from follower where who_id=? and whom_id=?',
+                 [session['user_id'], whom_id])
+    g.db.commit()
+    flash('You are no longer following "%s"'%username)
+    return redirect(url_for('user_timeline', username=username))
+
+@app.route('/add_message', method=['POST'])
+def add_message():
+    if 'user_id' not in session:
+        abort(401)
+    if request.form['text']:
+        g.db.execute('''insert into message(author_id, text, pub_date)
+        values(?,?,?)''', (session['user_id'], request.form['text'],int(time.time())))
+        g.db.commit()
+        flash('your message was recorded')
+    return redirect(url_for('timeline'))
+
+@app.route('/login', method=['GET', 'POST'])
+def login():
+    if g.user:
+        return redirect(url_for('timeline'))
+    error=None
+    if request.method=='POST':
+        user=query_db('''select * from user where
+                      username = ?''',[request.form['username']], one=True)
+        if user is None:
+            error='Invalid username'
+        elif not check_password_hash(user['pw_hash'], request.form['password']):
+            error='Invalid Password'
+        else:
+            flash('You were logged in')
+            session['user_id']=user['user_id']
+            return redirect(url_for('timeline'))
+        return render_template('login.html', error=error)
+
+@app.route('/register', method=['GET', 'POST'])
+def register():
+    if g.user:
+        return redirect(url_for(timeline))
+    error=None
+    if request.method=='POST':
+        
+
+
+
+
+
