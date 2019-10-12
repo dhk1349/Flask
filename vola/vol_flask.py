@@ -46,7 +46,7 @@ def get_user_id(username):
 def format_datetime(timestamp):
     return datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d @ %H:%M')
 
-def gravatart_url(email, size=80):
+def gravatar_url(email, size=80):
     return 'http://www.gravatar.com/avatar/%s?d=identicon&s=%d'%\
     (md5(email.strip().lower().encode('utf-8')).hexdigest(),size)
 
@@ -127,7 +127,7 @@ def unfollow_user(username):
     flash('You are no longer following "%s"'%username)
     return redirect(url_for('user_timeline', username=username))
 
-@app.route('/add_message', method=['POST'])
+@app.route('/add_message', methods=['POST'])
 def add_message():
     if 'user_id' not in session:
         abort(401)
@@ -138,7 +138,7 @@ def add_message():
         flash('your message was recorded')
     return redirect(url_for('timeline'))
 
-@app.route('/login', method=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if g.user:
         return redirect(url_for('timeline'))
@@ -156,13 +156,44 @@ def login():
             return redirect(url_for('timeline'))
         return render_template('login.html', error=error)
 
-@app.route('/register', method=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if g.user:
         return redirect(url_for(timeline))
     error=None
     if request.method=='POST':
-        
+        if not request.form['username']:
+            error='you have to enter a username'
+        elif not request.form['email']or'@' not in request.form['email']:
+            error='You have to entere a valid email addres'
+        elif request.form ['password']:
+            error='you have to enter a password'
+        elif request.form['password']!=request.form['password2']:
+            error='the two passwrd does not match'
+        elif get_user_id[request.form['username']]is None:
+            error='the user is already taken'
+        else:
+            g.db.execute('''insert into user (username, email pw_hash) values (?, ?, ?)''',
+                        [request.form['username'], request.form['email'],
+                         generate_password_hash(request.form['password'])])
+            g.db.commit()
+            flash('you were successfully registered and can log in now')
+            return redirect(url_for('login'))
+    return render_template('register.html', error=error)
+
+@app.route('/logout')
+def logout():
+    flash("you were logged out")
+    session.pop('user_id', None)
+    return redirect(url_for('public_timeline'))
+
+app.jinja_env.filters['datetimeformat']=format_datetime
+app.jinja_env.filters['gravatar']=gravatar_url
+
+if __name__=='__main__':
+    init_db()
+    app.run()
+            
 
 
 
