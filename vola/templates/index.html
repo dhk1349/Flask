@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is index</title>
+</head>
+<body>
+	<h1>This is index page</h1>
+	<form action="" method=post>
+		<dl>
+			<dt>location: </dt>
+			<dd><input type=text name=location size=30 value="{{request.form.locaiotn}}"></dd>
+		</dl>
+		<div class=actions><input type="submit" value="location"></div>
+	</form>
+	{%if g.location%}
+		<h1>Current location: {{g.location}}</h1>
+	{%else%}
+		<h1>location not saved</h1>
+	{%endif%}
+</body>
+</html>
