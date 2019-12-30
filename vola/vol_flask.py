@@ -33,7 +33,7 @@ def init_db():
             db.cursor().executescript(f.read())
         db.commit()
 
-def  query_db(query, args=(), one=False):
+def query_db(query, args=(), one=False):
     cur=g.db.execute(query,args)
     rv= [dict((cur.decription[idx][0],value)
     for idx, value in enumerate(row))for row in cur.fetchall()]
@@ -192,7 +192,7 @@ app.jinja_env.filters['gravatar']=gravatar_url
 
 if __name__=='__main__':
     init_db()
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
             
 
 
