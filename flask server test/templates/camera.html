@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>사진찍읍시다</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/animate.css">
+
+    <link rel="stylesheet" href="../static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../static/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="../static/css/aos.css">
+
+    <link rel="stylesheet" href="../static/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="../static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="../static/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="../static/css/flaticon.css">
+    <link rel="stylesheet" href="../static/css/icomoon.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/"><i class="flaticon-university"></i>treat-us
+            <br><small>치료하다. 건강해지다.</small></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/diagnosis" class="nav-link">Diagnosis</a></li>
+                <li class="nav-item"><a href="/my_page" class="nav-link">My Page</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <video height="350" width="400" id="player" controls autoplay></video>
+
+    <button id="capture" class="btn-success">누르면 3초후에 사진이 찍힙니다</button>
+    <canvas id="snapshot" width=320 height=240></canvas>
+</div>
+<a id="download" download="myImage.jpg" href="" onclick="download_img(this);">Download to myImage.jpg</a>
+
+<script>
+
+    var player = document.getElementById('player');
+    var snapshotCanvas = document.getElementById('snapshot');
+    var captureButton = document.getElementById('capture');
+
+    var handleSuccess = function (stream) {
+        // Attach the video stream to the video element and autoplay.
+        player.srcObject = stream;
+    };
+
+
+    captureButton.addEventListener('click', function () {
+
+        var timer = setTimeout(function () {
+            var context = snapshot.getContext('2d');
+
+            var ox = snapshotCanvas.width / 2;
+            var oy = snapshotCanvas.height / 2;
+            context.font = "42px serif";
+            context.textAlign = "center";
+            context.textBaseline = "middle";
+            context.fillStyle = "#800";
+            context.fillRect(ox / 2, oy / 2, ox, oy);
+
+            context.drawImage(player, 0, 0, snapshotCanvas.width,
+                snapshotCanvas.height);
+        }, 3000);
+
+
+    });
+
+    navigator.mediaDevices.getUserMedia({video: true})
+        .then(handleSuccess);
+
+
+    download_img = function (el) {
+        // get image URI from canvas object
+        var imageURI = snapshotCanvas.toDataURL("image/jpg");
+        el.href = imageURI;
+    };
+
+
+</script>
+<section class="ftco-section-parallax">
+    <div class="parallax-img d-flex align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div>
+                    <h2><a class="navbar-brand" href="index.html"><i class="flaticon-university"></i>Treat-Us
+                        <br><small>치료하다. 건강해지다.</small></a>
+                    </h2>
+                    <p><font color="black">건강은 건강할 때 지키는 겁니다. 지금부터 우리와 함께 시작해보세요~ 시작은 빠를수록 좋아요. 거북목이면 어깨도 아프고 허리도 아픈
+                        느낌이에요...</font></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="ftco-footer ftco-bg-dark ftco-section img"
+        style="background-image: url(../static/images/bg_1.jpg); background-attachment:fixed;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+
+                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+</body>
+
+</html>

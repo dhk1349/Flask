@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Treat-Us | dg</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/animate.css">
+    <link rel="stylesheet" href="../static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../static/css/magnific-popup.css">
+    <link rel="stylesheet" href="../static/css/aos.css">
+    <link rel="stylesheet" href="../static/css/ionicons.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="../static/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="../static/css/flaticon.css">
+    <link rel="stylesheet" href="../static/css/icomoon.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/"><i class="flaticon-university"></i>treat-us
+            <br><small>치료하다. 건강해지다.</small></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="/diagnosis" class="nav-link">Diagnosis</a></li>
+                <li class="nav-item"><a href="/my_page" class="nav-link">My Page</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+
+
+<!--처음 사진-->
+<div class="hero-wrap hero-wrap-2"
+     style="background-image: url('../static/images/bg_5.jpg'); background-attachment:fixed;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-8 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html"><font
+                        color="black">Treat-us</font></a></span></p>
+                <h1 class="mb-3 bread"><font color="black">Diagnosis<br><br></font></h1>
+
+                <div class="text"><p class="mb-3 bread"><font color="black"><strong>
+                    전문의들과 AI가 함께 진단했습니다.<br>사용자가 올린 사진을 분석하여 신체의 각도를 측정하고, 측정한 각도들로 최적의 거북목 분석 신경망을 찾아 사용했습니다.
+                    사용자의 정확한 신체 부분을 기준으로 각도를 측정하였고, 일정 각도 이상일 때 거북목으로 판단하였습니다.
+                    <br>또한 현재 얼만큼의 상태가 악화되었는지에 대한 수치와 치료 요법이 함께 제공됩니다.</strong></font></p></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--본문 시작-->
+
+
+<section class="ftco-section bg-light">
+
+    <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+
+        <div class="col-md-8 ftco-animate text-center">
+            <h1 class="mb-4"><font color="black"><strong>사용자 자세 분석 결과</strong></font></h1>
+
+            <div class="col-md-5 d-flex ftco-animate">
+                <div class="blog-entry align-self-stretch">
+                    <div class="text p-4 d-block">
+                        <a href="my_page_detail.html">August 13, 2020</a>
+                    </div>
+                    <a class="block-20" style="background-image: url('../static/saveimg/1.jpg');">
+                    </a>
+
+                    <div class="text p-4 d-block">
+                        <div class="meta mb-3">
+                            <div><font size="4" , color="black">※결과분석※ <br>귀와 어깨, 목, 사이의 각도를 측정하고 인공지능 신경망을 통해 거북목의
+                                상태를
+                                진단합니다.<br>
+                                거북목일 확률은 </font><font color="blue" , size="4"><strong>{{result}}</strong></font>
+                                <font size="4" , color="black">입니다</font></div>
+                            <br>
+                        </div>
+                        <!--<h3 class="heading mt-3"><a href="my_page_detail.html"></a></h3>
+                        <p>진행 단계는 양호합니다. 더 노력하세요.</p>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class=" ftco-section bg-light">
+    <div class="container" align="center">
+
+        <div class="row my-3">
+        </div>
+        <div class="row my-2">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="result_textneck"></canvas>
+                    </div>
+                    <div class="card-footer text-center text-dark"><h3>Text neck Probability</h3></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    value = {
+    {
+        result
+    }
+    }
+    value = Number(value)
+
+
+    data = {
+        datasets: [{
+            backgroundColor: ['#92a8d1', 'orange'],
+            data: [value, 1 - value]
+
+        }],
+        labels: ['text neck', 'non-text neck']
+    };
+
+    var ctx1 = document.getElementById("result_textneck");
+    var myPieChart = new Chart(ctx1, {
+        type: 'pie',
+        data: data,
+        options: {}
+    });
+</script>
+
+
+</div>
+</div>
+<section class="ftco-section-3 img" style="background-image: url(../static/images/bg_1.jpg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row d-md-flex justify-content-center">
+            <div class="col-md-9 about-video text-center">
+                <h2 class="ftco-animate"><font color="black">사용자에게 맞는 운동 추천</font></h2>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="ftco-counter bg-light" id="section-counter">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row">
+
+                    <div class="col-md-4 d-flex ftco-animate">
+
+                        <iframe width="600" height="350" src="https://www.youtube.com/embed/Io5NYpzfsEU"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope;
+          	 picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--        <div class="row mt-5">-->
+<!--            <div class="col text-center">-->
+<!--                <div class="block-27">-->
+<!--                    <ul>-->
+<!--                        <li><a href="#">&lt;</a></li>-->
+<!--                        <li class="active"><span>1</span></li>-->
+<!--                        <li><a href="#">2</a></li>-->
+<!--                        <li><a href="#">3</a></li>-->
+<!--                        <li><a href="#">4</a></li>-->
+<!--                        <li><a href="#">5</a></li>-->
+<!--                        <li><a href="#">&gt;</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+</section>
+<section class="ftco-section-parallax">
+    <div class="parallax-img d-flex align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div>
+                    <h2><a class="navbar-brand" href="index.html"><i class="flaticon-university"></i>Treat-Us
+                        <br><small>치료하다. 건강해지다.</small></a>
+                    </h2>
+                    <p><font color="black">건강은 건강할 때 지키는 겁니다. 지금부터 우리와 함께 시작해보세요~ 시작은 빠를수록 좋아요. 거북목이면 어깨도 아프고 허리도 아픈
+                        느낌이에요...</font></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="ftco-footer ftco-bg-dark ftco-section img"
+        style="background-image: url(../static/images/bg_1.jpg); background-attachment:fixed;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+
+                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i>
+                    by <a
+                            href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="../static/js/popper.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/jquery.easing.1.3.js"></script>
+<script src="../static/js/jquery.waypoints.min.js"></script>
+<script src="../static/js/jquery.stellar.min.js"></script>
+<script src="../static/js/owl.carousel.min.js"></script>
+<script src="../static/js/jquery.magnific-popup.min.js"></script>
+<script src="../static/js/aos.js"></script>
+<script src="../static/js/jquery.animateNumber.min.js"></script>
+<script src="../static/js/bootstrap-datepicker.js"></script>
+<script src="../static/js/jquery.timepicker.min.js"></script>
+<script src="../static/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="../static/js/google-map.js"></script>
+<script src="../static/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

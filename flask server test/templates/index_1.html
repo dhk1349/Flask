@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Treat-Us</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/animate.css">
+
+    <link rel="stylesheet" href="../static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../static/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="../static/css/aos.css">
+
+    <link rel="stylesheet" href="../static/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="../static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="../static/css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="../static/css/flaticon.css">
+    <link rel="stylesheet" href="../static/css/icomoon.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/"><i class="flaticon-university"></i>treat-us
+            <br><small>치료하다. 건강해지다.</small></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/diagnosis" class="nav-link">Diagnosis</a></li>
+                <li class="nav-item"><a href="/my_page" class="nav-link">My Page</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav -->
+
+<div class="hero-wrap" style="background-image: url('../static/images/bg_1.jpg'); background-attachment:fixed;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-8 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html"><font
+                        color="black">Treat-us</font></a></span></p>
+                <h1 class="mb-4"><font color="black">Text neck <br> diagnosis & Therapy</font></h1>
+                <br><br><br>
+
+                <div class="text"><p class="mb-5"><font color="black"> <strong>※사이트 이용법※ <br><br>
+                    1. 자세 측정하기 버튼을 눌러 사진을 촬영합니다<br>2.사진 저장하기 버튼을 누르면 사용자 컴퓨터에 사진이 자동 저장됩니다
+                    <br> 3. 홈으로 와 파일선택을 하여 찍은 사진을 업로드 합니다 <br>4. 결과값 보기를 누르면 사용자의 거북목 상태가 진단됩니다
+                    <br>5. 사용자의 상태에 맞는 치료운동이 제공됩니다</strong></font></p></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function AddCamera() {
+        $(".camerasection").append(
+            '<div><video  height="350" width="400" id="player" controls autoplay></video>' +
+
+            '<button id="capture" class="btn-success">누르면 3초후에 사진이 찍힙니다</button>' +
+            '<canvas id="snapshot" width=320 height=240 name="addphoto"></canvas></div>'
+        );
+
+        var player = document.getElementById('player');
+        var snapshotCanvas = document.getElementById('snapshot');
+        var captureButton = document.getElementById('capture');
+
+
+        var handleSuccess = function (stream) {
+            // Attach the video stream to the video element and autoplay.
+            player.srcObject = stream;
+        };
+        captureButton.addEventListener('click', function () {
+            var timer = setTimeout(function () {
+                var context = snapshot.getContext('2d');
+
+                var ox = snapshotCanvas.width / 2;
+                var oy = snapshotCanvas.height / 2;
+                context.font = "42px serif";
+                context.textAlign = "center";
+                context.textBaseline = "middle";
+                context.fillStyle = "#800";
+                context.fillRect(ox / 2, oy / 2, ox, oy);
+
+
+                context.drawImage(player, 0, 0, snapshotCanvas.width,
+                    snapshotCanvas.height);
+            }, 3000);
+        });
+        navigator.mediaDevices.getUserMedia({video: true})
+            .then(handleSuccess);
+
+        $(".camerasection").append(
+            '<input type="submit" class="btn btn-join px-4 py-3" name="결과값 보기" value="결과값 보기">'
+        );
+
+        download_img = function (el) {
+            // get image URI from canvas object
+            var imageURI = snapshotCanvas.toDataURL("image/jpg");
+            el.href = imageURI;
+        };
+
+    };
+
+    function TakeImage() {
+        $(".sect2").append(
+            '<input type="submit" class="btn btn-join px-4 py-3" name="결과값 보기" value="결과값 보기">'
+        );
+    }
+
+</script>
+
+<!-- TODO : 여기서 검증한 결과 보여주기 -->
+
+<section class="ftco-section">
+
+    <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+        <div class="col-md-8 ftco-animate text-center">
+            <h1 class="mb-4"><font color="black">Analysis</font></h1>
+
+            <form action="http://localhost:5000/camerafileUpload" method="post" enctype="multipart/form-data">
+
+            <p><input type="button" class="btn btn-primary px-4 py-3" id="button"
+                      onclick="javascript:AddCamera()" value="자세 측정하기"/>
+                <div class="camerasection"></div>
+
+            </form>
+
+            <form action="http://localhost:5000/fileUpload" method="post" enctype="multipart/form-data">
+                <input type="file" class="btn btn-secondary px-4 py-3" value="takephoto" name="takephoto"
+                       accept="image/png, image/jepg, image/jpg" onclick="javascript:TakeImage()">
+
+            <!-- <a id="download" download="myImage.jpg" href="" onclick="download_img(this);">
+                <strong>사진 저장하기</strong></a></p> -->
+
+                <div class="sect2" ></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+<section class="ftco-section-3 img" style="background-image: url(../static/images/bg_1.jpg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row d-md-flex justify-content-center">
+            <div class="col-md-9 about-video text-center">
+                <h2 class="ftco-animate">Treat-us 이용 후 치료된 이용자 수</h2>
+                <div class="video d-flex justify-content-center">
+                    <a href="https://vimeo.com/45830194"
+                       class="button popup-vimeo d-flex justify-content-center align-items-center"><span
+                            class="ion-ios-play"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-counter bg-light" id="section-counter">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" data-number="350">0</strong>
+                                <span><font color="red">treat-us 사용자 </font></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" data-number="5">0</strong>
+                                <span><font color="black">타 사이트 사용자</font></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" data-number="350">0</strong>
+                                <span><font color="blue">Treat-us의 이용률</font></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section testimony-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                <h2 class="mb-3"><strong><font size="8">후기</font></strong></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="carousel-testimony owl-carousel">
+                    <div class="item">
+                        <div class="testimony-wrap text-center">
+                            <div class="user-img mb-5" style="background-image: url(../static/images/person_5.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                            </div>
+                            <div class="text">
+                                <p class="mb-5">너무 좋아요. <br>거북목이 없어져서 어깨도 안아파요~ 꾸준히 저의 개선된 모습들도 보여주어서 더욱 스트레칭과 바른 자세의
+                                    중요성을 일깨워주는 것 같아요
+                                    정말 정확한 진단을 해주는 것 같아요! <br>추천합니다</p>
+                                <p class="name">이현* 고객</p>
+                                <span class="position">20대</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap text-center">
+                            <div class="user-img mb-5" style="background-image: url(../static/images/person_2.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                            </div>
+                            <div class="text">
+                                <p class="mb-5">안좋은 자세 때문에 목과 어깨가 너무 뻐근하고 항상 아팠어요. 그런데 이 사이트를 통해서 저의 몸이 다시 살아났어요!
+                                    너무 좋아요. 어디 부분이 안좋은지 알려주고 거기에 맞는 치료법까지 알려주는게 저와 너무 잘 맞는 방법이였습니다!
+                                    <br>진짜 강추!!!</p>
+                                <p class="name">서강* 고객</p>
+                                <span class="position">30대</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap text-center">
+                            <div class="user-img mb-5" style="background-image: url(../static/images/person_3.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                            </div>
+                            <div class="text">
+                                <p class="mb-5"> 인공지능과 전문의가 함께 해서 더욱 신뢰성 있어요<br>저만 하다가 너무 좋아서 주변 사람들한테 전부 추천해줬어요!<br> 몸이
+                                    개선되는 모습을 눈으로 볼 수 있어요
+                                    거북목이 없어져서 어깨도 안아파요~ </p>
+                                <p class="name">김지* 고객</p>
+                                <span class="position">50대</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap text-center">
+                            <div class="user-img mb-5" style="background-image: url(../static/images/person_4.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                            </div>
+                            <div class="text">
+                                <p class="mb-5">정말 진심으로 추천합니다 <br>
+                                    이것은 혁명이에요 <br>속는 셈 치고 한번만 이용해보세요 놀라운 신세계입니다ㅠㅠ</p>
+                                <p class="name">최은* 고객</p>
+                                <span class="position">10대 </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section-parallax">
+    <div class="parallax-img d-flex align-items-center">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div>
+                    <h2><a class="navbar-brand" href="index.html"><i class="flaticon-university"></i>Treat-Us
+                        <br><small>치료하다. 건강해지다.</small></a>
+                    </h2>
+                    <p>건강은 건강할 때 지키는 겁니다. 지금부터 우리와 함께 시작해보세요~ 시작은 빠를수록 좋아요. 거북목이면 어깨도 아프고 허리도 아픈 느낌이에요...</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="ftco-footer ftco-bg-dark ftco-section img"
+        style="background-image: url(../static/images/bg_1.jpg); background-attachment:fixed;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+
+                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
+
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="../static/js/popper.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/jquery.easing.1.3.js"></script>
+<script src="../static/js/jquery.waypoints.min.js"></script>
+<script src="../static/js/jquery.stellar.min.js"></script>
+<script src="../static/js/owl.carousel.min.js"></script>
+<script src="../static/js/jquery.magnific-popup.min.js"></script>
+<script src="../static/js/aos.js"></script>
+<script src="../static/js/jquery.animateNumber.min.js"></script>
+<script src="../static/js/bootstrap-datepicker.js"></script>
+<script src="../static/js/jquery.timepicker.min.js"></script>
+<script src="../static/js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="../static/js/google-map.js"></script>
+<script src="../static/js/main.js"></script>
+
+
+</body>
+</html>
