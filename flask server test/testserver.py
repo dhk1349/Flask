@@ -59,7 +59,6 @@ def about():
     """
     데이터를 받거나
     여기서 가공.
-
     """
 
     return render_template("about.html")
@@ -72,8 +71,8 @@ def enterpage(user):
 @app.route('/receive', methods=['GET', 'POST'])
 def reveive():
     if request.method == 'POST':
-        result=request.form
-        return render_template("receive.html", result=result)
+        box=request.form
+        return render_template("receive.html", result=box)
 
 
 @app.route('/diagnosis')
@@ -96,4 +95,4 @@ def my_page_detail():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=8000)
