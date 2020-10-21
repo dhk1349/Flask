@@ -16,6 +16,7 @@ def hello():
 def reveive():
     if request.method == 'POST':
         f = request.files['send']
+        f.save("newfile.jpg")
         print (f)
         return "file received"
     else:
