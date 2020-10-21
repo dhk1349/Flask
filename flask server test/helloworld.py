@@ -5,8 +5,7 @@ Created on Wed Oct  7 23:32:03 2020
 @author: dhk13
 """
 
-from flask import Flask
-import request
+from flask import Flask, request
 app = Flask(__name__)
 
 @app.route("/")
