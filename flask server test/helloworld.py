@@ -6,11 +6,19 @@ Created on Wed Oct  7 23:32:03 2020
 """
 
 from flask import Flask
+import request
 app = Flask(__name__)
 
 @app.route("/")
 def hello():
     return "Hello World!"
+
+@app.route('/receive', methods=['GET', 'POST'])
+def reveive():
+    if request.method == 'POST':
+        f = request.files['send']
+        print (f)
+        return "file received"
 
 if __name__ == "__main__":
     app.run()
