@@ -19,6 +19,8 @@ def reveive():
         f = request.files['send']
         print (f)
         return "file received"
+    else:
+        print("not post")
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=8000)
