@@ -10,5 +10,5 @@ with open('send.jpg', 'rb') as f1:
     files = [
         ('send', f1)
     ]
-    requests.post('http://13.125.251.146:8000/receive', files=files)
+    requests.post('http://127.0.0.1:8000/receive', files=files)
     print("sent")
