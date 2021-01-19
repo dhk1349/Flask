@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Oct  7 22:26:04 2020
+Created on  2021
 
 @author: dhk13
 """
@@ -8,43 +8,23 @@ Created on Wed Oct  7 22:26:04 2020
 import os
 import sys
 
-
-#from bringPoseEst import *
 from flask import Flask, jsonify, request, send_file, render_template
 from werkzeug.utils import secure_filename
 import requests
 
 app = Flask(__name__)
 
-
-
 @app.route('/')
 def index():
-    print("pass fnc ended")
-    """
-    데이터를 받거나
-    여기서 가공.
 
-    """
-    return render_template("index.html")
-
-@app.route('/page1')
-def p1():
-
-    return render_template("page1.html")
+    return render_template("main.html")
 
 
-@app.route('/page2')
-def p2():
-
-    return render_template("page2.html")
-
-
-@app.route('/page3')
+@app.route('/result', methods=['GET', 'POST'])
 def p3():
 
     
-    return render_template("page3.html")
+    return render_template("result.html")
 
 
 @app.route('/page4')
