@@ -11,11 +11,11 @@ import sqlite3
 from flask import Flask, jsonify, request, send_file, render_template
 from werkzeug.utils import secure_filename
 import requests
-
+ 
 app = Flask(__name__)
 
 #connecting database
-conn=sqlite3.connect("./database/food.db")
+conn=sqlite3.connect("./database/food.db", check_same_thread=False )
 cur=conn.cursor()
 
 @app.route('/')
@@ -27,33 +27,32 @@ def index():
 @app.route('/result', methods=['GET', 'POST'])
 def result():
     if request.method == 'POST':
-        data=request.form
+        menu=request.form['name']
         option=request.form['method']
         
         if option=="food":
-            query="select * from food where ingred=?"
+            query="select * from food where food=?"
             
         elif option=="ingred":
-            query="select * from ingred where food=?"
-        
-        cur.execute(query, (data['name']))
+            query="select * from food where ingred=?"
+        print(menu)
+        cur.execute(query, (menu,))
         rows=cur.fetchall()
-    return render_template("result.html", result=rows)
+    return render_template("result.html", result=rows, option=option)
 
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
         data=request.form
-        option=request.form['method']
-        
-        if option=="food":
-            query="insert into food(food, ingred) value(?,?)"
-            
-        elif option=="ingred":
-            query="insert into ingred(ingred, food) value(?,?)"
-        
+        """
+        중복 여부 확인 추가 할 것
+        """
+        query="insert into food(food, ingred) values(?,?)"
+
         cur.execute(query, ())
+        conn.commit()
+
     return render_template("add.html")
 
 @app.route('/about')
@@ -98,3 +97,4 @@ def my_page_detail():
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
+    conn.close()
